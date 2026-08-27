@@ -28,6 +28,7 @@ import workField from "@/assets/work-field.jpg";
 import workEquipment from "@/assets/work-equipment.jpg";
 import workData from "@/assets/work-data.jpg";
 import workSafety from "@/assets/work-safety.jpg";
+import capabilitiesBg from "@/assets/Capabilities-section.webp";
 import { useI18n } from "@/lib/i18n";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -136,34 +137,46 @@ function Home() {
       </section>
 
       {/* 3. SERVICES */}
-      <section id="services" className="py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <SectionHeading
-            eyebrow={t.services.eyebrow}
-            title={t.services.title}
-            subtitle={t.services.sub}
-          />
-          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <section id="services" className="relative overflow-hidden bg-navy-deep py-20 sm:py-28">
+        <img
+          src={capabilitiesBg}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={1672}
+          height={941}
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
+          <Reveal className="order-2 self-start lg:order-1">
+            <SectionHeading
+              eyebrow={t.services.eyebrow}
+              title={t.services.title}
+              subtitle={t.services.sub}
+              onDark
+            />
+          </Reveal>
+          <ul className="order-1 grid grid-cols-2 gap-4 sm:gap-5 lg:order-2">
             {t.services.items.map((item, i) => {
               const Icon = serviceIcons[i]!;
               return (
                 <Reveal as="li" key={item.title} delay={i * 80}>
-                  <article className="group h-full rounded-lg border border-border bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-steel/40 hover:shadow-elevated">
-                    <span className="flex size-12 items-center justify-center rounded-md bg-navy text-gold transition-colors group-hover:bg-gold group-hover:text-gold-foreground">
-                      <Icon className="size-6" />
+                  <article className="group flex aspect-square h-full flex-col rounded-lg border border-navy-foreground/12 bg-navy/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 sm:p-5">
+                    <span className="flex size-10 items-center justify-center rounded-md bg-navy text-gold transition-colors group-hover:bg-gold group-hover:text-gold-foreground">
+                      <Icon className="size-5" />
                     </span>
-                    <h3 className="font-display mt-5 text-lg font-bold text-foreground">
+                    <h3 className="font-display mt-3 line-clamp-2 text-sm font-bold text-navy-foreground sm:text-base">
                       {item.title}
                     </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-1.5 line-clamp-3 text-xs leading-relaxed text-navy-foreground/70">
                       {item.desc}
                     </p>
                     <Link
                       to="/services"
-                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-steel hover:text-navy"
+                      className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-steel-light hover:text-gold"
                     >
                       {t.cta.learn}
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
                     </Link>
                   </article>
                 </Reveal>
