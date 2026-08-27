@@ -100,9 +100,9 @@ export function Header() {
           <img
             src={logo}
             alt="Falcon Oilfield Services falcon emblem logo"
-            width={44}
-            height={44}
-            className="size-9 shrink-0 sm:size-11"
+            width={52}
+            height={52}
+            className="size-11 shrink-0 sm:size-13"
           />
           <span className="flex flex-col leading-tight">
             <span

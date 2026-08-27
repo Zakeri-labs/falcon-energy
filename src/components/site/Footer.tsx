@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Linkedin, Twitter, Facebook, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Facebook, Instagram, Mail, Phone, MapPin, Clock } from "lucide-react";
 import logo from "@/assets/falcon-logo.png";
 import facility from "@/assets/footer-facility.jpg";
 import { useI18n } from "@/lib/i18n";
@@ -16,10 +16,17 @@ export function Footer() {
   ];
 
   const socials = [
-    { Icon: Linkedin, label: "LinkedIn" },
-    { Icon: Twitter, label: "X" },
-    { Icon: Facebook, label: "Facebook" },
-    { Icon: Youtube, label: "YouTube" },
+    {
+      Icon: Facebook,
+      label: "Facebook",
+      href: "https://www.facebook.com/people/Falcon-Oilfield-Services/100065248102230/",
+    },
+    {
+      Icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/falcon-oilfield-services/",
+    },
+    { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/falcon_group_oman/" },
   ];
 
   return (
@@ -42,7 +49,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="" loading="lazy" width={40} height={40} className="size-10" />
+            <img src={logo} alt="" loading="lazy" width={52} height={52} className="size-13" />
             <span className="font-display text-sm font-bold">{t.brand}</span>
           </div>
           <p className="text-sm leading-relaxed text-navy-foreground/70">{t.hero.eyebrow}</p>
@@ -86,6 +93,10 @@ export function Footer() {
               <Mail className="size-4 shrink-0 text-steel-light" />
               <span dir="ltr">{t.contact.email}</span>
             </li>
+            <li className="flex items-start gap-2.5">
+              <Clock className="mt-0.5 size-4 shrink-0 text-steel-light" />
+              {t.contact.hours}
+            </li>
           </ul>
         </div>
 
@@ -94,10 +105,12 @@ export function Footer() {
             {t.footer.followTitle}
           </h3>
           <ul className="mt-4 flex gap-2">
-            {socials.map(({ Icon, label }) => (
+            {socials.map(({ Icon, label, href }) => (
               <li key={label}>
                 <a
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="flex size-10 items-center justify-center rounded-md border border-navy-foreground/20 text-navy-foreground/80 transition-colors hover:border-gold hover:text-gold"
                 >

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone, Clock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SiteLayout, PageHero } from "@/components/site/SiteLayout";
 import { Reveal } from "@/components/site/Reveal";
@@ -48,9 +48,13 @@ function ContactPage() {
                 <Mail className="size-5 shrink-0 text-steel" />
                 <span dir="ltr">{t.contact.email}</span>
               </li>
+              <li className="flex items-start gap-3">
+                <Clock className="mt-0.5 size-5 shrink-0 text-steel" />
+                {t.contact.hours}
+              </li>
             </ul>
             <Button asChild variant="gold" size="lg" className="mt-7">
-              <a href="https://wa.me/96822000000" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/96822321114" target="_blank" rel="noopener noreferrer">
                 <MessageCircle />
                 {t.cta.whatsapp}
               </a>

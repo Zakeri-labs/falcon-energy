@@ -1,8 +1,11 @@
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Award,
   BadgeCheck,
+  ChevronLeft,
+  ChevronRight,
   ClipboardList,
   Compass,
   Cpu,
@@ -26,6 +29,7 @@ import workEquipment from "@/assets/work-equipment.jpg";
 import workData from "@/assets/work-data.jpg";
 import workSafety from "@/assets/work-safety.jpg";
 import capabilitiesBg from "@/assets/Capabilities-section.webp";
+import capabilitiesBgMobile from "@/assets/Capabilities-section-mobile.webp";
 import logoPdo from "@/assets/Client Logo/01_PDO.png";
 import logoOxy from "@/assets/Client Logo/02_OXY.png";
 import logoPetrogasEp from "@/assets/Client Logo/03_Petrogas_EP.png";
@@ -87,6 +91,59 @@ const clientLogos = [
 
 function Home() {
   const { t, isRtl } = useI18n();
+  const servicesScrollRef = useRef<HTMLUListElement>(null);
+  const servicesPausedUntilRef = useRef(0);
+  const scrollServices = (direction: 1 | -1) => {
+    const el = servicesScrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.85 * (isRtl ? -1 : 1) * direction;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+    servicesPausedUntilRef.current = Date.now() + 4500;
+  };
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const el = servicesScrollRef.current;
+      if (!el || window.innerWidth >= 1024) return;
+      if (Date.now() < servicesPausedUntilRef.current) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 0) return;
+      const atEnd = isRtl ? el.scrollLeft <= -maxScroll + 4 : el.scrollLeft >= maxScroll - 4;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: (isRtl ? -1 : 1) * el.clientWidth * 0.85, behavior: "smooth" });
+      }
+    }, 3200);
+    return () => window.clearInterval(id);
+  }, [isRtl]);
+
+  const testiScrollRef = useRef<HTMLUListElement>(null);
+  const testiPausedUntilRef = useRef(0);
+  const scrollTesti = (direction: 1 | -1) => {
+    const el = testiScrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.85 * (isRtl ? -1 : 1) * direction;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+    testiPausedUntilRef.current = Date.now() + 4500;
+  };
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const el = testiScrollRef.current;
+      if (!el || window.innerWidth >= 1024) return;
+      if (Date.now() < testiPausedUntilRef.current) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 0) return;
+      const atEnd = isRtl ? el.scrollLeft <= -maxScroll + 4 : el.scrollLeft >= maxScroll - 4;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: (isRtl ? -1 : 1) * el.clientWidth * 0.85, behavior: "smooth" });
+      }
+    }, 3200);
+    return () => window.clearInterval(id);
+  }, [isRtl]);
 
   return (
     <SiteLayout>
@@ -164,7 +221,16 @@ function Home() {
       </section>
 
       {/* 3. SERVICES */}
-      <section id="services" className="relative overflow-hidden bg-navy-deep py-20 sm:py-28">
+      <section id="services" className="relative overflow-hidden bg-navy-deep py-14 sm:py-28">
+        <img
+          src={capabilitiesBgMobile}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={941}
+          height={1672}
+          className="absolute inset-0 block size-full object-cover object-[center_38%] lg:hidden"
+        />
         <img
           src={capabilitiesBg}
           alt=""
@@ -172,10 +238,10 @@ function Home() {
           loading="lazy"
           width={1672}
           height={941}
-          className="absolute inset-0 size-full object-cover"
+          className="absolute inset-0 hidden size-full object-cover object-center lg:block"
         />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
-          <Reveal className="order-2 self-start lg:order-1">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-3 px-4 lg:grid-cols-2 lg:gap-10 lg:px-8">
+          <Reveal className="order-1 self-start lg:order-1">
             <SectionHeading
               eyebrow={t.services.eyebrow}
               title={t.services.title}
@@ -183,53 +249,106 @@ function Home() {
               onDark
             />
           </Reveal>
-          <ul className="order-1 grid grid-cols-2 gap-4 sm:gap-5 lg:order-2">
-            {t.services.items.map((item, i) => {
-              const Icon = serviceIcons[i]!;
-              return (
-                <Reveal as="li" key={item.title} delay={i * 80}>
-                  <article className="group flex aspect-square h-full flex-col rounded-lg border border-navy-foreground/12 bg-navy/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 sm:p-5">
-                    <span className="flex size-10 items-center justify-center rounded-md bg-navy text-gold transition-colors group-hover:bg-gold group-hover:text-gold-foreground">
-                      <Icon className="size-5" />
-                    </span>
-                    <h3 className="font-display mt-3 line-clamp-2 text-sm font-bold text-navy-foreground sm:text-base">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1.5 line-clamp-3 text-xs leading-relaxed text-navy-foreground/70">
-                      {item.desc}
-                    </p>
-                    <Link
-                      to="/services"
-                      className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-steel-light hover:text-gold"
-                    >
-                      {t.cta.learn}
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
-                    </Link>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </ul>
+          <div className="order-2 min-w-0 lg:order-2">
+            <div className="mb-3 flex justify-end gap-2 lg:hidden">
+              <button
+                type="button"
+                onClick={() => scrollServices(-1)}
+                aria-label={isRtl ? "بعدی" : "Previous"}
+                className="flex size-9 items-center justify-center rounded-full bg-navy text-gold shadow-card transition-colors hover:bg-gold hover:text-gold-foreground"
+              >
+                <ChevronLeft className="size-4 rtl:rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollServices(1)}
+                aria-label={isRtl ? "قبلی" : "Next"}
+                className="flex size-9 items-center justify-center rounded-full bg-navy text-gold shadow-card transition-colors hover:bg-gold hover:text-gold-foreground"
+              >
+                <ChevronRight className="size-4 rtl:rotate-180" />
+              </button>
+            </div>
+            <ul
+              ref={servicesScrollRef}
+              onPointerDown={() => {
+                servicesPausedUntilRef.current = Date.now() + 6000;
+              }}
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scroll-padding-inline:7%] [scrollbar-width:none] lg:grid lg:grid-cols-2 lg:gap-5 lg:overflow-visible lg:pb-0 lg:[scroll-padding-inline:0] [&::-webkit-scrollbar]:hidden"
+            >
+              {t.services.items.map((item, i) => {
+                const Icon = serviceIcons[i]!;
+                return (
+                  <Reveal
+                    as="li"
+                    key={item.title}
+                    delay={i * 80}
+                    className="w-[86%] shrink-0 snap-center lg:w-auto"
+                  >
+                    <article className="group flex h-full min-h-64 flex-col rounded-lg border border-navy-foreground/12 bg-navy/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 sm:p-5 lg:aspect-square lg:min-h-0">
+                      <span className="flex size-10 items-center justify-center rounded-md bg-navy text-gold transition-colors group-hover:bg-gold group-hover:text-gold-foreground">
+                        <Icon className="size-5" />
+                      </span>
+                      <h3 className="font-display mt-3 text-sm font-bold text-navy-foreground sm:text-base lg:line-clamp-2">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1.5 text-xs leading-relaxed text-navy-foreground/70 lg:line-clamp-3">
+                        {item.desc}
+                      </p>
+                      <Link
+                        to="/services"
+                        className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-steel-light hover:text-gold"
+                      >
+                        {t.cta.learn}
+                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                      </Link>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* 4. ABOUT */}
       <section id="about" className="bg-secondary py-20 sm:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
-          <Reveal className="order-2 lg:order-1">
+          <Reveal className="order-1">
             <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} />
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">{t.about.body}</p>
+            <Reveal className="mt-6 lg:hidden" delay={60}>
+              <div className="relative">
+                <img
+                  src={aboutImg}
+                  alt={t.about.alt}
+                  loading="lazy"
+                  width={1408}
+                  height={1008}
+                  className="w-full rounded-lg object-cover shadow-elevated"
+                />
+                <div className="animate-float badge-glow-static absolute -bottom-5 start-5 rounded-md border border-gold/25 bg-navy px-5 py-4 text-navy-foreground">
+                  <p className="font-display text-2xl font-bold text-gold">20+</p>
+                  <p className="text-xs tracking-wide text-navy-foreground/75">{t.trust[0]}</p>
+                </div>
+              </div>
+            </Reveal>
             <ul className="mt-8 grid gap-5 sm:grid-cols-2">
               {t.about.points.map((p, i) => {
                 const Icon = aboutIcons[i]!;
                 return (
-                  <li key={p.title} className="flex gap-3">
+                  <Reveal
+                    as="li"
+                    key={p.title}
+                    variant="fall"
+                    delay={i * 120}
+                    className="flex gap-3"
+                  >
                     <Icon className="mt-0.5 size-5 shrink-0 text-steel" />
                     <div>
                       <h3 className="text-sm font-bold text-foreground">{p.title}</h3>
                       <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                     </div>
-                  </li>
+                  </Reveal>
                 );
               })}
             </ul>
@@ -237,7 +356,7 @@ function Home() {
               <Link to="/about">{t.nav.about}</Link>
             </Button>
           </Reveal>
-          <Reveal className="order-1 lg:order-2" delay={100}>
+          <Reveal className="order-2 hidden lg:block" delay={100}>
             <div className="relative">
               <img
                 src={aboutImg}
@@ -247,7 +366,7 @@ function Home() {
                 height={1008}
                 className="w-full rounded-lg object-cover shadow-elevated"
               />
-              <div className="animate-float absolute -bottom-5 start-5 rounded-md bg-navy px-5 py-4 text-navy-foreground shadow-elevated animate-glow-pulse">
+              <div className="animate-float badge-glow-static absolute -bottom-5 start-5 rounded-md border border-gold/25 bg-navy px-5 py-4 text-navy-foreground">
                 <p className="font-display text-2xl font-bold text-gold">20+</p>
                 <p className="text-xs tracking-wide text-navy-foreground/75">{t.trust[0]}</p>
               </div>
@@ -342,9 +461,38 @@ function Home() {
             subtitle={t.testi.sub}
             center
           />
-          <ul className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="mt-12 flex justify-end gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={() => scrollTesti(-1)}
+              aria-label={isRtl ? "بعدی" : "Previous"}
+              className="flex size-9 items-center justify-center rounded-full bg-navy text-gold shadow-card transition-colors hover:bg-gold hover:text-gold-foreground"
+            >
+              <ChevronLeft className="size-4 rtl:rotate-180" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTesti(1)}
+              aria-label={isRtl ? "قبلی" : "Next"}
+              className="flex size-9 items-center justify-center rounded-full bg-navy text-gold shadow-card transition-colors hover:bg-gold hover:text-gold-foreground"
+            >
+              <ChevronRight className="size-4 rtl:rotate-180" />
+            </button>
+          </div>
+          <ul
+            ref={testiScrollRef}
+            onPointerDown={() => {
+              testiPausedUntilRef.current = Date.now() + 6000;
+            }}
+            className="mt-3 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scroll-padding-inline:7%] [scrollbar-width:none] lg:mt-12 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0 lg:[scroll-padding-inline:0] [&::-webkit-scrollbar]:hidden"
+          >
             {t.testi.items.map((item, i) => (
-              <Reveal as="li" key={item.role} delay={i * 80}>
+              <Reveal
+                as="li"
+                key={item.role}
+                delay={i * 80}
+                className="w-[86%] shrink-0 snap-center lg:w-auto"
+              >
                 <figure className="flex h-full flex-col rounded-lg border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-elevated">
                   <Quote className="size-7 text-gold rtl:rotate-180" />
                   <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground">
@@ -410,7 +558,7 @@ function Home() {
               <p className="text-sm font-semibold text-navy-foreground/80">{t.contact.direct}</p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="lg">
-                  <a href="https://wa.me/96822000000" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/96822321114" target="_blank" rel="noopener noreferrer">
                     <MessageCircle />
                     {t.cta.whatsapp}
                   </a>
