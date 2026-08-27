@@ -52,6 +52,8 @@
   --shadow-header: 0 8px 30px -18px oklch(0.19 0.06 258 / 0.5);
   --animate-marquee-ltr: marquee-ltr 34s linear infinite;
   --animate-marquee-rtl: marquee-rtl 34s linear infinite;
+  --animate-float: float 2s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
 }
 
 :root {
@@ -139,6 +141,30 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px 2px oklch(0.77 0.145 82 / 0.4),
+      var(--shadow-elevated);
+  }
+  50% {
+    box-shadow:
+      0 0 32px 10px oklch(0.77 0.145 82 / 0.65),
+      var(--shadow-elevated);
   }
 }
 

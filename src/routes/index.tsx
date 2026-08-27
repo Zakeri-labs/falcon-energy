@@ -220,7 +220,7 @@ function Home() {
                 height={1008}
                 className="w-full rounded-lg object-cover shadow-elevated"
               />
-              <div className="absolute -bottom-5 start-5 rounded-md bg-navy px-5 py-4 text-navy-foreground shadow-elevated">
+              <div className="animate-float absolute -bottom-5 start-5 rounded-md bg-navy px-5 py-4 text-navy-foreground shadow-elevated animate-glow-pulse">
                 <p className="font-display text-2xl font-bold text-gold">20+</p>
                 <p className="text-xs tracking-wide text-navy-foreground/75">{t.trust[0]}</p>
               </div>
