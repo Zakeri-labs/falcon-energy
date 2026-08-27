@@ -421,30 +421,56 @@ function Home() {
         />
         <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
           <SectionHeading eyebrow={t.process.eyebrow} title={t.process.title} onDark />
-          <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+          {/* Mobile: vertical timeline */}
+          <ol className="mt-10 lg:hidden">
+            {t.process.steps.map((step, i) => {
+              const Icon = processIcons[i]!;
+              const isLast = i === t.process.steps.length - 1;
+              return (
+                <Reveal as="li" key={step.title} delay={i * 90} className="flex gap-4">
+                  <div className="flex shrink-0 flex-col items-center">
+                    <span className="flex size-11 items-center justify-center rounded-full border border-gold/40 bg-navy">
+                      <Icon className="size-5 text-gold" />
+                    </span>
+                    {!isLast && (
+                      <span className="mt-1 min-h-14 w-0.5 flex-1 bg-navy-foreground/12" />
+                    )}
+                  </div>
+                  <div className={cn("pb-7", isLast && "pb-0")}>
+                    <h3 className="font-display text-base font-bold text-navy-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-navy-foreground/70">
+                      {step.desc}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </ol>
+
+          {/* Desktop: horizontal timeline */}
+          <ol className="relative mt-16 hidden lg:grid lg:grid-cols-4 lg:gap-6">
+            <span className="absolute top-[22px] start-[12.5%] end-[12.5%] h-0.5 bg-navy-foreground/12" />
             {t.process.steps.map((step, i) => {
               const Icon = processIcons[i]!;
               return (
-                <Reveal as="li" key={step.title} delay={i * 90}>
-                  <div className="relative h-full rounded-lg border border-navy-foreground/12 bg-navy/70 p-6 backdrop-blur-sm transition-colors hover:border-gold/50">
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-3xl font-bold text-gold/45">
-                        0{i + 1}
-                      </span>
-                      <Icon className="size-6 text-steel-light" />
-                    </div>
-                    <h3 className="font-display mt-5 text-base font-bold text-navy-foreground">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy-foreground/70">
-                      {step.desc}
-                    </p>
-                    {i < 3 && (
-                      <span className="absolute top-1/2 -end-3 hidden size-6 items-center justify-center rounded-full bg-gold text-gold-foreground lg:flex">
-                        <ArrowRight className="size-3.5 rtl:rotate-180" />
-                      </span>
-                    )}
-                  </div>
+                <Reveal
+                  as="li"
+                  key={step.title}
+                  delay={i * 90}
+                  className="relative flex flex-col items-center text-center"
+                >
+                  <span className="relative flex size-11 items-center justify-center rounded-full border border-gold/40 bg-navy">
+                    <Icon className="size-5 text-gold" />
+                  </span>
+                  <h3 className="font-display mt-5 text-base font-bold text-navy-foreground">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-navy-foreground/70">
+                    {step.desc}
+                  </p>
                 </Reveal>
               );
             })}
