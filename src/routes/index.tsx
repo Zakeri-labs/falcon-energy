@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  Activity,
   ArrowRight,
   Award,
   BadgeCheck,
@@ -8,7 +7,6 @@ import {
   Compass,
   Cpu,
   Database,
-  Gauge,
   Globe2,
   HardHat,
   MapPin,
@@ -19,7 +17,6 @@ import {
   ShieldCheck,
   Star,
   Users,
-  Wrench,
   Zap,
 } from "lucide-react";
 import heroImg from "@/assets/hero-oilfield.jpg";
@@ -29,6 +26,15 @@ import workEquipment from "@/assets/work-equipment.jpg";
 import workData from "@/assets/work-data.jpg";
 import workSafety from "@/assets/work-safety.jpg";
 import capabilitiesBg from "@/assets/Capabilities-section.webp";
+import logoPdo from "@/assets/Client Logo/01_PDO.png";
+import logoOxy from "@/assets/Client Logo/02_OXY.png";
+import logoPetrogasEp from "@/assets/Client Logo/03_Petrogas_EP.png";
+import logoCced from "@/assets/Client Logo/04_CCED.png";
+import logoMedcoEnergi from "@/assets/Client Logo/05_MedcoEnergi.png";
+import logoDaleelPetroleum from "@/assets/Client Logo/06_Daleel_Petroleum.png";
+import logoJannahHunt from "@/assets/Client Logo/07_Jannah_Hunt.png";
+import logoPetroTelOman from "@/assets/Client Logo/08_PetroTel_Oman.png";
+import logoHydrocarbonFinderEp from "@/assets/Client Logo/09_Hydrocarbon_Finder_EP.png";
 import { useI18n } from "@/lib/i18n";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -67,6 +73,17 @@ const trustIcons = [Award, Users, Cpu, BadgeCheck, MapPin];
 const aboutIcons = [Compass, Ruler, Globe2, ShieldCheck];
 const processIcons = [ClipboardList, Ruler, HardHat, Database];
 const workImages = [workField, workEquipment, aboutImg, workSafety];
+const clientLogos = [
+  { src: logoPdo, alt: "PDO" },
+  { src: logoOxy, alt: "OXY" },
+  { src: logoPetrogasEp, alt: "Petrogas EP" },
+  { src: logoCced, alt: "CCED" },
+  { src: logoMedcoEnergi, alt: "MedcoEnergi" },
+  { src: logoDaleelPetroleum, alt: "Daleel Petroleum" },
+  { src: logoJannahHunt, alt: "Jannah Hunt" },
+  { src: logoPetroTelOman, alt: "PetroTel Oman" },
+  { src: logoHydrocarbonFinderEp, alt: "Hydrocarbon Finder EP" },
+];
 
 function Home() {
   const { t, isRtl } = useI18n();
@@ -82,11 +99,11 @@ function Home() {
           height={1088}
           className="absolute inset-0 size-full object-cover rtl:scale-x-[-1]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/80 to-navy-deep/10 rtl:bg-gradient-to-l" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-transparent to-navy-deep/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/40 via-navy-deep/20 to-navy-deep/0 rtl:bg-gradient-to-l" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/15 via-transparent to-navy-deep/10" />
 
         <div className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-20 lg:px-8">
-          <div className="me-auto max-w-2xl text-start">
+          <div className="me-auto max-w-[70%] text-start sm:max-w-2xl">
             <Reveal>
               <span className="eyebrow rule-gold text-steel-light">{t.hero.eyebrow}</span>
               <h1 className="font-display mt-4 text-3xl leading-[1.1] font-bold text-navy-foreground sm:text-5xl lg:text-6xl">
@@ -96,13 +113,23 @@ function Home() {
                 {t.hero.sub}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild variant="gold" size="xl">
+                <Button
+                  asChild
+                  variant="gold"
+                  size="xl"
+                  className="h-auto min-h-13 whitespace-normal py-3 text-center leading-snug sm:h-13 sm:whitespace-nowrap sm:py-0"
+                >
                   <Link to="/contact">
                     {t.cta.consult}
                     <ArrowRight className="rtl:rotate-180" />
                   </Link>
                 </Button>
-                <Button asChild variant="onDark" size="xl">
+                <Button
+                  asChild
+                  variant="onDark"
+                  size="xl"
+                  className="h-auto min-h-13 whitespace-normal py-3 text-center leading-snug sm:h-13 sm:whitespace-nowrap sm:py-0"
+                >
                   <Link to="/services">{t.cta.explore}</Link>
                 </Button>
               </div>
@@ -343,17 +370,28 @@ function Home() {
             <p className="text-center text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
               {t.testi.partners}
             </p>
-            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-              {[Activity, Gauge, Cpu, Wrench, Database].map((Icon, i) => (
-                <li
-                  key={i}
-                  className="flex h-16 items-center justify-center gap-2 rounded-md border border-dashed border-border bg-background text-muted-foreground"
-                >
-                  <Icon className="size-5" />
-                  <span className="text-xs font-semibold tracking-wide">LOGO</span>
-                </li>
-              ))}
-            </ul>
+            <div className="group mt-6 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+              <ul
+                className={cn(
+                  "flex w-max shrink-0 items-center gap-12 pe-12 group-hover:[animation-play-state:paused]",
+                  isRtl ? "animate-marquee-rtl" : "animate-marquee-ltr",
+                )}
+              >
+                {[...clientLogos, ...clientLogos].map((logo, i) => (
+                  <li
+                    key={`${logo.alt}-${i}`}
+                    className="flex h-21 shrink-0 items-center justify-center"
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      loading="lazy"
+                      className="h-15 w-auto max-w-[210px] object-contain grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Reveal>
         </div>
       </section>
