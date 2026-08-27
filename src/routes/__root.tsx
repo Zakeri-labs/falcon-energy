@@ -77,14 +77,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Falcon Oilfield Services" },
+      {
+        name: "description",
+        content:
+          "Oman-based independent oilfield services company delivering wireline logging, perforation, well intervention and reservoir monitoring for critical well operations.",
+      },
+      { name: "author", content: "Falcon Oilfield Services" },
+      { property: "og:site_name", content: "Falcon Oilfield Services" },
+      { property: "og:title", content: "Falcon Oilfield Services" },
+      {
+        property: "og:description",
+        content:
+          "Oman-based independent oilfield services company delivering wireline logging, perforation, well intervention and reservoir monitoring for critical well operations.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://falconofs.com/" },
+      { property: "og:image", content: "https://falconofs.com/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Falcon Oilfield Services" },
+      { property: "og:locale", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Falcon Oilfield Services" },
+      {
+        name: "twitter:description",
+        content:
+          "Oman-based independent oilfield services company delivering wireline logging, perforation, well intervention and reservoir monitoring for critical well operations.",
+      },
+      { name: "twitter:image", content: "https://falconofs.com/og-image.png" },
     ],
     links: [
       {
