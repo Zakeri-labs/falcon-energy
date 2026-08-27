@@ -92,8 +92,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Oman-based independent oilfield services company delivering wireline logging, perforation, well intervention and reservoir monitoring for critical well operations.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://falconofs.com/" },
-      { property: "og:image", content: "https://falconofs.com/og-image.png" },
+      { property: "og:url", content: "https://falconofs.zakeri.dev/" },
+      { property: "og:image", content: "https://falconofs.zakeri.dev/og-image.png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Falcon Oilfield Services" },
@@ -105,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Oman-based independent oilfield services company delivering wireline logging, perforation, well intervention and reservoir monitoring for critical well operations.",
       },
-      { name: "twitter:image", content: "https://falconofs.com/og-image.png" },
+      { name: "twitter:image", content: "https://falconofs.zakeri.dev/og-image.png" },
     ],
     links: [
       {
