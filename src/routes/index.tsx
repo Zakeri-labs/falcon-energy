@@ -23,6 +23,7 @@ import {
   Zap,
 } from "lucide-react";
 import heroImg from "@/assets/hero-oilfield.jpg";
+import heroVideo from "@/assets/hero-video.mp4";
 import aboutImg from "@/assets/about-team.jpg";
 import workField from "@/assets/work-field.jpg";
 import workEquipment from "@/assets/work-equipment.jpg";
@@ -148,16 +149,21 @@ function Home() {
   return (
     <SiteLayout>
       {/* 1. HERO */}
-      <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden bg-navy-deep">
-        <img
-          src={heroImg}
-          alt={t.hero.alt}
-          width={1920}
-          height={1088}
-          className="absolute inset-0 size-full object-cover rtl:scale-x-[-1]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/40 via-navy-deep/20 to-navy-deep/0 rtl:bg-gradient-to-l" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/15 via-transparent to-navy-deep/10" />
+      <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-navy-deep">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImg}
+          aria-label={t.hero.alt}
+          className="absolute inset-0 size-full scale-105 object-cover rtl:scale-x-[-1]"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/70 via-navy-deep/35 to-navy-deep/10 rtl:bg-gradient-to-l" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/40 via-transparent to-navy-deep/25" />
 
         <div className="relative mx-auto w-full max-w-7xl px-4 pt-28 pb-20 lg:px-8">
           <div className="me-auto max-w-[70%] text-start sm:max-w-2xl">
