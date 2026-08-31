@@ -149,7 +149,7 @@ function Home() {
   return (
     <SiteLayout>
       {/* 1. HERO */}
-      <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-navy-deep">
+      <section className="relative isolate flex min-h-[82svh] items-center overflow-hidden bg-navy-deep sm:min-h-screen">
         <video
           autoPlay
           muted
@@ -158,7 +158,7 @@ function Home() {
           preload="metadata"
           poster={heroImg}
           aria-label={t.hero.alt}
-          className="absolute inset-0 size-full scale-105 object-cover rtl:scale-x-[-1]"
+          className="absolute inset-0 size-full object-cover object-[65%_center] sm:scale-105 sm:object-center rtl:scale-x-[-1]"
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
