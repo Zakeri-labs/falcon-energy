@@ -30,30 +30,28 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-navy-deep text-navy-foreground">
-      <div className="relative overflow-hidden">
-        <img
-          src={facility}
-          alt={t.footer.alt}
-          loading="lazy"
-          width={1400}
-          height={800}
-          className="h-52 w-full object-cover opacity-45 sm:h-64 rtl:scale-x-[-1]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-4 pb-6 lg:px-8">
-          <p className="font-display max-w-xl text-xl font-bold sm:text-2xl">{t.footer.slogan}</p>
-        </div>
-      </div>
+    <footer className="relative isolate overflow-hidden bg-navy-deep text-navy-foreground sm:flex sm:h-72 sm:flex-col">
+      <img
+        src={facility}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        width={1400}
+        height={800}
+        className="absolute inset-0 -z-20 size-full object-cover opacity-30 rtl:scale-x-[-1]"
+      />
+      <div className="absolute inset-0 -z-10 bg-navy-deep/30" />
 
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        <div className="space-y-4">
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:flex-1 sm:grid-cols-2 sm:items-center sm:py-4 lg:grid-cols-4 lg:px-8">
+        <div className="space-y-3">
           <div className="flex items-center gap-3">
             <img src={logo} alt="" loading="lazy" width={52} height={52} className="size-13" />
             <span className="font-display text-sm font-bold">{t.brand}</span>
           </div>
-          <p className="text-sm leading-relaxed text-navy-foreground/70">{t.hero.eyebrow}</p>
-          <Button asChild variant="gold" size="default">
+          <p className="font-display max-w-sm text-lg leading-snug font-bold sm:text-xl">
+            {t.footer.slogan}
+          </p>
+          <Button asChild variant="gold" size="sm">
             <Link to="/contact">{t.cta.consult}</Link>
           </Button>
         </div>
@@ -62,7 +60,7 @@ export function Footer() {
           <h3 className="text-xs font-bold tracking-[0.16em] text-gold uppercase">
             {t.footer.navTitle}
           </h3>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-3 space-y-1.5">
             {links.map((l) => (
               <li key={l.to}>
                 <Link
@@ -80,7 +78,7 @@ export function Footer() {
           <h3 className="text-xs font-bold tracking-[0.16em] text-gold uppercase">
             {t.footer.contactTitle}
           </h3>
-          <ul className="mt-4 space-y-3 text-sm text-navy-foreground/75">
+          <ul className="mt-3 space-y-2 text-sm text-navy-foreground/75">
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 size-4 shrink-0 text-steel-light" />
               {t.contact.address}
@@ -104,7 +102,7 @@ export function Footer() {
           <h3 className="text-xs font-bold tracking-[0.16em] text-gold uppercase">
             {t.footer.followTitle}
           </h3>
-          <ul className="mt-4 flex gap-2">
+          <ul className="mt-3 flex gap-2">
             {socials.map(({ Icon, label, href }) => (
               <li key={label}>
                 <a
@@ -122,7 +120,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-navy-foreground/10 py-5">
+      <div className="border-t border-navy-foreground/10 py-3">
         <p className="mx-auto max-w-7xl px-4 text-xs text-navy-foreground/55 lg:px-8">
           © {new Date().getFullYear()} {t.brand}. {t.footer.rights}
         </p>
