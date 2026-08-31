@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -90,6 +90,78 @@ const clientLogos = [
   { src: logoHydrocarbonFinderEp, alt: "Hydrocarbon Finder EP" },
 ];
 
+function HeroVideoLoop({ alt }: { alt: string }) {
+  const firstVideoRef = useRef<HTMLVideoElement>(null);
+  const secondVideoRef = useRef<HTMLVideoElement>(null);
+  const [visibleVideo, setVisibleVideo] = useState<0 | 1>(0);
+  const transitionStartedRef = useRef(false);
+  const crossfadeDuration = 0.75;
+
+  const videoRefs = [firstVideoRef, secondVideoRef] as const;
+
+  const startTransition = (currentIndex: 0 | 1) => {
+    if (transitionStartedRef.current) return;
+
+    const nextIndex = currentIndex === 0 ? 1 : 0;
+    const nextVideo = videoRefs[nextIndex].current;
+    if (!nextVideo) return;
+
+    transitionStartedRef.current = true;
+    nextVideo.currentTime = 0;
+    void nextVideo.play();
+    setVisibleVideo(nextIndex);
+  };
+
+  const handleTimeUpdate = (index: 0 | 1) => {
+    const video = videoRefs[index].current;
+    if (!video || !Number.isFinite(video.duration)) return;
+
+    if (video.currentTime >= video.duration - crossfadeDuration) {
+      startTransition(index);
+    }
+  };
+
+  const handleEnded = (index: 0 | 1) => {
+    const video = videoRefs[index].current;
+    if (!video) return;
+
+    video.pause();
+    video.currentTime = 0;
+
+    if (!transitionStartedRef.current) {
+      void video.play();
+      return;
+    }
+
+    transitionStartedRef.current = false;
+  };
+
+  return (
+    <div className="absolute inset-0" aria-label={alt}>
+      {[firstVideoRef, secondVideoRef].map((ref, index) => (
+        <video
+          key={index}
+          ref={ref}
+          autoPlay={index === 0}
+          muted
+          playsInline
+          preload="auto"
+          poster={heroImg}
+          aria-hidden={index === 1}
+          onTimeUpdate={() => handleTimeUpdate(index as 0 | 1)}
+          onEnded={() => handleEnded(index as 0 | 1)}
+          className={cn(
+            "absolute inset-0 size-full object-cover object-[65%_center] transition-opacity duration-700 ease-linear sm:scale-105 sm:object-center rtl:scale-x-[-1]",
+            visibleVideo === index ? "opacity-100" : "opacity-0",
+          )}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+      ))}
+    </div>
+  );
+}
+
 function Home() {
   const { t, isRtl } = useI18n();
   const servicesScrollRef = useRef<HTMLUListElement>(null);
@@ -150,18 +222,7 @@ function Home() {
     <SiteLayout>
       {/* 1. HERO */}
       <section className="relative isolate flex min-h-[82svh] items-center overflow-hidden bg-navy-deep sm:min-h-screen">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={heroImg}
-          aria-label={t.hero.alt}
-          className="absolute inset-0 size-full object-cover object-[65%_center] sm:scale-105 sm:object-center rtl:scale-x-[-1]"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        <HeroVideoLoop alt={t.hero.alt} />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/70 via-navy-deep/35 to-navy-deep/10 rtl:bg-gradient-to-l" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/40 via-transparent to-navy-deep/25" />
 
