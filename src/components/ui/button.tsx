@@ -22,13 +22,12 @@ const buttonVariants = cva(
           "border border-navy-foreground/35 bg-navy-foreground/5 text-navy-foreground font-semibold backdrop-blur-sm hover:bg-navy-foreground/15",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-11 rounded-md px-7 text-[0.95rem]",
-        xl: "h-13 rounded-md px-8 text-base",
+        default: "h-8 px-3 text-xs",
+        sm: "h-7 rounded-md px-2.5 text-xs",
+        lg: "h-10 rounded-md px-5 text-sm",
+        xl: "h-11 rounded-md px-6 text-sm",
         icon: "h-9 w-9",
       },
-
     },
     defaultVariants: {
       variant: "default",

@@ -22,17 +22,16 @@ const dict = {
       contact: "Contact",
     },
     cta: {
-      consult: "Request Technical Consultation",
-      explore: "Explore Capabilities",
+      consult: "Request Consultation",
+      explore: "Explore Services",
       whatsapp: "WhatsApp",
-      talk: "Talk to an Engineer",
+      talk: "Talk to an Expert",
       learn: "Learn more",
     },
     hero: {
       eyebrow: "Oman-based independent oilfield partner",
-      title:
-        "Advanced Wireline, Well Intervention & Reservoir Data Solutions for Oman's Energy Sector",
-      sub: "Falcon delivers reliable well-service solutions through advanced technology, experienced field teams, and safety-driven operations.",
+      title: "Wireline, Intervention & Reservoir Intelligence for Oman",
+      sub: "Reliable well-service expertise, advanced technology, and safe field execution.",
       alt: "Falcon field engineers running wireline tools at a wellhead in the Oman desert",
     },
     trust: [
@@ -212,16 +211,16 @@ const dict = {
       contact: "اتصل بنا",
     },
     cta: {
-      consult: "اطلب استشارة فنية",
-      explore: "استكشف قدراتنا",
+      consult: "اطلب استشارة",
+      explore: "استكشف الخدمات",
       whatsapp: "واتساب",
-      talk: "تحدث إلى مهندس",
+      talk: "تحدث إلى خبير",
       learn: "اعرف المزيد",
     },
     hero: {
       eyebrow: "شريك مستقل مقره سلطنة عُمان",
-      title: "حلول متقدمة للكابل السلكي والتدخل في الآبار وبيانات المكامن لقطاع الطاقة في عُمان",
-      sub: "تقدم فالكون حلول خدمات آبار موثوقة من خلال تقنيات متقدمة وفرق ميدانية ذات خبرة وعمليات قائمة على السلامة.",
+      title: "حلول الكابل السلكي والتدخل وذكاء المكامن لعُمان",
+      sub: "خبرة موثوقة وتقنيات متقدمة وتنفيذ ميداني آمن لخدمات الآبار.",
       alt: "مهندسو فالكون يشغلون أدوات الكابل السلكي عند فوهة البئر في صحراء عُمان",
     },
     trust: [

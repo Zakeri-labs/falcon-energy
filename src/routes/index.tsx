@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero-oilfield.jpg";
 import heroVideo from "@/assets/hero-video.mp4";
+import heroVideoMobile from "@/assets/hero-video-mobile.mp4";
 import aboutImg from "@/assets/about-team.jpg";
 import workField from "@/assets/work-field.jpg";
 import workEquipment from "@/assets/work-equipment.jpg";
@@ -91,73 +92,20 @@ const clientLogos = [
 ];
 
 function HeroVideoLoop({ alt }: { alt: string }) {
-  const firstVideoRef = useRef<HTMLVideoElement>(null);
-  const secondVideoRef = useRef<HTMLVideoElement>(null);
-  const [visibleVideo, setVisibleVideo] = useState<0 | 1>(0);
-  const transitionStartedRef = useRef(false);
-  const crossfadeDuration = 0.75;
-
-  const videoRefs = [firstVideoRef, secondVideoRef] as const;
-
-  const startTransition = (currentIndex: 0 | 1) => {
-    if (transitionStartedRef.current) return;
-
-    const nextIndex = currentIndex === 0 ? 1 : 0;
-    const nextVideo = videoRefs[nextIndex].current;
-    if (!nextVideo) return;
-
-    transitionStartedRef.current = true;
-    nextVideo.currentTime = 0;
-    void nextVideo.play();
-    setVisibleVideo(nextIndex);
-  };
-
-  const handleTimeUpdate = (index: 0 | 1) => {
-    const video = videoRefs[index].current;
-    if (!video || !Number.isFinite(video.duration)) return;
-
-    if (video.currentTime >= video.duration - crossfadeDuration) {
-      startTransition(index);
-    }
-  };
-
-  const handleEnded = (index: 0 | 1) => {
-    const video = videoRefs[index].current;
-    if (!video) return;
-
-    video.pause();
-    video.currentTime = 0;
-
-    if (!transitionStartedRef.current) {
-      void video.play();
-      return;
-    }
-
-    transitionStartedRef.current = false;
-  };
-
   return (
     <div className="absolute inset-0" aria-label={alt}>
-      {[firstVideoRef, secondVideoRef].map((ref, index) => (
-        <video
-          key={index}
-          ref={ref}
-          autoPlay={index === 0}
-          muted
-          playsInline
-          preload="auto"
-          poster={heroImg}
-          aria-hidden={index === 1}
-          onTimeUpdate={() => handleTimeUpdate(index as 0 | 1)}
-          onEnded={() => handleEnded(index as 0 | 1)}
-          className={cn(
-            "absolute inset-0 size-full object-cover object-[65%_center] transition-opacity duration-700 ease-linear sm:scale-105 sm:object-center rtl:scale-x-[-1]",
-            visibleVideo === index ? "opacity-100" : "opacity-0",
-          )}
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
-      ))}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={heroImg}
+        className="absolute inset-0 size-full object-cover object-[65%_center] sm:scale-105 sm:object-center rtl:scale-x-[-1]"
+      >
+        <source media="(max-width: 639px)" src={heroVideoMobile} type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
+      </video>
     </div>
   );
 }
@@ -237,23 +185,13 @@ function Home() {
                 {t.hero.sub}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button
-                  asChild
-                  variant="gold"
-                  size="xl"
-                  className="h-auto min-h-13 whitespace-normal py-3 text-center leading-snug sm:h-13 sm:whitespace-nowrap sm:py-0"
-                >
+                <Button asChild variant="gold" size="lg" className="px-4 text-xs">
                   <Link to="/contact">
                     {t.cta.consult}
                     <ArrowRight className="rtl:rotate-180" />
                   </Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="onDark"
-                  size="xl"
-                  className="h-auto min-h-13 whitespace-normal py-3 text-center leading-snug sm:h-13 sm:whitespace-nowrap sm:py-0"
-                >
+                <Button asChild variant="onDark" size="lg" className="px-4 text-xs">
                   <Link to="/services">{t.cta.explore}</Link>
                 </Button>
               </div>

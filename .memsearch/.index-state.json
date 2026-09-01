@@ -1,11 +1,11 @@
 {
   "collection": "ms_falcon_energy_showcase_3e5a3e09",
   "failed_files": [],
-  "indexed_chunks": 4,
-  "indexed_files": 1,
-  "last_completed_at": "2026-08-31T10:02:31.280839Z",
-  "last_started_at": "2026-08-31T10:02:28.865552Z",
-  "last_success_at": "2026-08-31T10:02:31.280839Z",
+  "indexed_chunks": 2,
+  "indexed_files": 2,
+  "last_completed_at": "2026-09-01T08:26:14.974594Z",
+  "last_started_at": "2026-09-01T08:26:12.293588Z",
+  "last_success_at": "2026-09-01T08:26:14.974594Z",
   "milvus_uri": "~/.memsearch/milvus.db",
   "operation": "index",
   "paths": [
@@ -13,6 +13,6 @@
   ],
   "schema_version": 1,
   "status": "ok",
-  "total_files": 1,
-  "updated_at": "2026-08-31T10:02:31.280839Z"
+  "total_files": 2,
+  "updated_at": "2026-09-01T08:26:14.974594Z"
 }
